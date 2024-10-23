@@ -1,0 +1,17 @@
+[Unit]
+Description=ha-mqtt-adapter
+After=syslog.target network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/ha-mqtt-adapter/src
+ExecStart=/opt/ha-mqtt-adapter/venv/bin/python  main.py -c /etc/ha-mqtt-adapter.ini
+Restart=always
+RestartSec=30
+TimeoutStartSec=10
+TimeoutStopSec=10
+
+
+[Install]
+WantedBy=multi-user.target
+
