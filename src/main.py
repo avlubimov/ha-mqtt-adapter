@@ -9,6 +9,7 @@ try:
     from time import sleep, ctime
     from threading import Timer
     from Params import Params
+    import codecs
 
     parser = Parser()
     params = Params(parser.options)
@@ -43,7 +44,9 @@ def on_timer():
 
 
 def on_message(client, userdata, msg):
-    logger.msg_debug(f"Topic: {msg.topic} Payload:{msg.payload}")
+    value = codecs.decode(msg.payload, 'unicode-escape')
+
+    logger.msg_debug(f"Topic: {msg.topic} Payload:{value}")
     for plugin in PLUGINS:
         plugin.on_message(client, userdata, msg)
 
